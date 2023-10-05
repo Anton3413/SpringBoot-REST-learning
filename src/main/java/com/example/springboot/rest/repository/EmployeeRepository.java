@@ -2,17 +2,9 @@ package com.example.springboot.rest.repository;
 
 
 import com.example.springboot.rest.model.Employee;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-import java.util.Optional;
+public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
-public interface EmployeeRepository {
 
-   List<Employee> getAllEmployees();
-
-    void saveEmployee(Employee employee);
-
-    Optional<Employee> getEmployeeById(int id);
-
-    void deleteEmployeeById(int id);
 }
