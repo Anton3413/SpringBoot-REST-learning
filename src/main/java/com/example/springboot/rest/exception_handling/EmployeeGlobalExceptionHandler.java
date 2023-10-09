@@ -1,20 +1,26 @@
 package com.example.springboot.rest.exception_handling;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class EmployeeGlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<EmployeeIncorrectData> handleEntityNotFoundError(EntityNotFoundException nf){
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleEntityNotFoundError(EntityNotFoundException nf){
 
-        EmployeeIncorrectData incorrectData = new EmployeeIncorrectData(nf.getMessage());
-        return new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
+        return nf.getMessage();
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleDataIntegrityViolation(DataIntegrityViolationException dive){
+       return dive.getMessage();
+    }
 
 }

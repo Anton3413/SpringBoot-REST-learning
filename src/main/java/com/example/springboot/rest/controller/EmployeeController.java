@@ -1,8 +1,10 @@
 package com.example.springboot.rest.controller;
 
+import com.example.springboot.rest.exception_handling.EmployeeIncorrectData;
 import com.example.springboot.rest.model.Employee;
 import com.example.springboot.rest.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +32,9 @@ public class EmployeeController {
         employeeService.saveEmployee(employee);
         return employee;
     }
-    @PutMapping("/employees")
-    public Employee updateEmployee(@RequestBody Employee employee){
+    @PutMapping("/employees/{id}")
+    public Employee updateEmployee(@RequestBody Employee employee,@PathVariable int id){
+        employee.setId(id);
         employeeService.saveEmployee(employee);
         return employee;
     }

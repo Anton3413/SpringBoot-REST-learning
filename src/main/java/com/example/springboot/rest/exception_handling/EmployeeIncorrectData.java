@@ -1,6 +1,6 @@
 package com.example.springboot.rest.exception_handling;
 
-public class EmployeeIncorrectData {
+public class EmployeeIncorrectData extends RuntimeException {
 
     String info;
 
